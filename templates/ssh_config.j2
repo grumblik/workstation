@@ -1,0 +1,14 @@
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/master-%r@%h:%p.socket
+    ControlPersist 3000m
+    Compression yes
+    UseRoaming no
+    TCPKeepAlive yes
+    ServerAliveInterval 15
+    ServerAliveCountMax 300
+### default strings
+    SendEnv LANG LC_*
+    HashKnownHosts yes
+    GSSAPIAuthentication yes
+### End default strings

@@ -1,0 +1,48 @@
+---
+- name: Install packeages
+  hosts: workstation
+  gather_facts: false
+
+  tasks:
+  - name: Install pakages
+    apt: 
+      install_recommends: yes
+      update_cache: yes
+      cache_valid_time: 3600
+      state: latest
+      autoclean: yes
+      autoremove: yes
+      name: 
+      - yakuake
+      - nano
+      - sudo
+      - atop
+      - htop
+      - sysstat
+      - iftop
+      - tcpdump
+      - strace
+      - dstat
+      - konsole
+      - mtr
+      - wget
+      - curl
+      - lxde
+      - lightdm
+      - ncdu
+
+  - name: Change sysctl
+    sysctl:
+      name: vm.swappiness
+      value: '5'
+      state: present
+      reload: yes
+
+  - name: SSH client config   
+    template:       
+      src: ssh_config.j2
+      dest: "/home/grumble/.ssh/config"       
+      owner: grumble
+      group: grumble
+      mode: 0600
+      backup: yes
