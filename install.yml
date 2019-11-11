@@ -1,5 +1,5 @@
 ---
-- name: Install packeages
+- name: Install packages
   hosts: workstation
   gather_facts: false
 
@@ -46,3 +46,15 @@
       group: grumble
       mode: 0600
       backup: yes
+
+  - name: Insert sudo alias in bashrc
+    lineinfile:
+      path: /home/grumble/.bashrc
+      backup: yes
+      line: alias sd="sudo su"
+
+  - name: Insert whithout password access in sudoers for grumble
+    lineinfile:
+      path: /etc/sudoers
+      line: grumble ALL=(ALL:ALL) NOPASSWD:ALL
+      validate: 'visudo -cf %s'
