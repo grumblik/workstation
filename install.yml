@@ -1,5 +1,5 @@
 ---
-- name: Install packages
+- name: Install base on a workstation
   hosts: workstation
   gather_facts: false
 
@@ -30,6 +30,13 @@
       - lxde
       - lightdm
       - ncdu
+      - git
+      - wget
+      - pwgen
+      - udns-utils
+      - screen
+      - rsync
+      - mc
 
   - name: Change sysctl
     sysctl:
