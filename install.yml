@@ -4,6 +4,23 @@
   gather_facts: false
 
   tasks:
+  - name: add oracle_vbox_2016.asc apt-key
+    apt_key: 
+      url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      state: present
+ 
+  - name: add oracle_vbox.asc apt-key
+    apt_key:
+      url: https://www.virtualbox.org/download/oracle_vbox.asc
+      state: present
+
+  - name: add virtualbox apt repository
+    apt_repository: 
+      repo: 'deb https://download.virtualbox.org/virtualbox/debian stretch contrib' 
+      state: present 
+      filename: virtualbox
+      update_cache: yes
+
   - name: Install pakages
     apt: 
       install_recommends: yes
@@ -37,6 +54,7 @@
       - screen
       - rsync
       - mc
+      - virtualbox-6.1
 
   - name: Change sysctl
     sysctl:
@@ -64,13 +82,12 @@
 
   - name: Insert whithout password access in sudoers for grumble
     lineinfile:
-      path: /etc/sudoers
-      state: absent
+      dest: /etc/sudoers
       line: 'grumble ALL=(ALL:ALL) NOPASSWD:ALL'
       validate: 'visudo -cf %s'
 
   - name: Insert sudo alias in bashrc
     lineinfile:
-      path: /home/grumble/.bashrc
+      dest: /home/grumble/.bashrc
       backup: yes
       line: 'alias sd="sudo su"'
