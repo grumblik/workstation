@@ -45,23 +45,32 @@
       state: present
       reload: yes
 
+  - name: Create a directory ~/.ssh if it does not exist
+    file:
+      path: /home/grumble/.ssh
+      state: directory
+      mode: 0700
+      owner: grumble
+      group: grumble
+
   - name: SSH client config   
     template:       
       src: ssh_config.j2
       dest: "/home/grumble/.ssh/config"       
+      mode: 0600
       owner: grumble
       group: grumble
-      mode: 0600
       backup: yes
+
+  - name: Insert whithout password access in sudoers for grumble
+    lineinfile:
+      path: /etc/sudoers
+      state: absent
+      line: 'grumble ALL=(ALL:ALL) NOPASSWD:ALL'
+      validate: 'visudo -cf %s'
 
   - name: Insert sudo alias in bashrc
     lineinfile:
       path: /home/grumble/.bashrc
       backup: yes
-      line: alias sd="sudo su"
-
-  - name: Insert whithout password access in sudoers for grumble
-    lineinfile:
-      path: /etc/sudoers
-      line: grumble ALL=(ALL:ALL) NOPASSWD:ALL
-      validate: 'visudo -cf %s'
+      line: 'alias sd="sudo su"'
