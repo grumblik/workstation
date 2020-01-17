@@ -5,4 +5,4 @@ apt update <br>
 apt install ansible git <br>
 git clone https://github.com/grumblik/workstation.git<br>
 cd workstation <br>
-ansible-playbook install.yml --limit localhost <br>
+ansible-playbook --connection=local install.yml -i hosts <br>
