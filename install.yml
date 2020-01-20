@@ -55,6 +55,7 @@
       - rsync
       - mc
       - virtualbox-6.1
+      - pssh
 
   - name: Change sysctl
     sysctl:
