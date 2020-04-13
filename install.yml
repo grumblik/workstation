@@ -38,6 +38,7 @@
       - sysstat
       - iftop
       - tcpdump
+      - lsof
       - strace
       - dstat
       - konsole
@@ -54,7 +55,10 @@
       - screen
       - rsync
       - mc
-      - virtualbox-6.1
+      - nslookup
+      - dnsutils
+      - rdesktop
+#      - virtualbox-6.1
       - pssh
 
   - name: Change sysctl
